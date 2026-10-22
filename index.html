@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دوري أبطال الفرسان</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #121629;
+            --bg-card: #1e2235;
+            --primary-gold: #e6b95c;
+            --primary-blue: #5c6ce6;
+            --text-light: #ffffff;
+            --text-muted: #a0a5c0;
+            --border-color: #2d334d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* حاوية التطبيق */
+        .app-container {
+            width: 100%;
+            max-width: 420px;
+            background-color: var(--bg-dark);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            color: var(--text-light);
+            position: relative;
+        }
+
+        /* الهيدر (نفس ستايل صفحة الدخول) */
+        .header-section {
+            background: linear-gradient(135deg, #1e2235 0%, #121629 100%);
+            padding: 30px 25px 20px 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* زخارف دائرية بالخلفية */
+        .header-section::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 50%;
+        }
+
+        .header-icons {
+            font-size: 28px;
+            margin-bottom: 12px;
+            letter-spacing: 5px;
+        }
+
+        .header-section h1 {
+            color: var(--primary-gold);
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .header-section p {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* شريط التبويبات */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 20px 20px 20px;
+            background: linear-gradient(180deg, #121629 0%, var(--bg-dark) 100%);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-gold);
+            color: var(--bg-dark);
+            border-color: var(--primary-gold);
+            box-shadow: 0 4px 15px rgba(230, 185, 92, 0.2);
+        }
+
+        /* المحتوى الداخلي */
+        .main-content {
+            padding: 20px 25px 30px 25px;
+        }
+
+        .welcome-title {
+            color: var(--primary-gold);
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .info-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px;
+            color: var(--text-light);
+            font-size: 14px;
+            text-align: center;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        /* شبكة الإحصائيات */
+        .stats-grid {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            flex: 1;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary-gold);
+        }
+
+        .stat-card h3 {
+            color: var(--primary-gold);
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* صندوق التنبيه */
+        .alert-box {
+            background-color: rgba(92, 108, 230, 0.1);
+            border: 1px solid rgba(92, 108, 230, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            color: var(--text-light);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .alert-box span {
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        /* الأزرار السفلية */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-card);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-gold);
+            color: var(--bg-dark);
+            box-shadow: 0 4px 15px rgba(230, 185, 92, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: #d4a94a;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- الهيدر -->
+        <div class="header-section">
+            <div class="header-icons">⚽ 🏆 ⚽</div>
+            <h1>دوري أبطال الفرسان لكرة القدم</h1>
+            <p>لوحة تفاعلية لإدارة المباريات والنتائج<br>مدير المدرسة: إياد عبد الله الحربي - معلم التربية البدنية: مازن الحربي</p>
+        </div>
+
+        <!-- التبويبات -->
+        <div class="tabs-container">
+            <button class="tab-btn">المباريات والنتائج</button>
+            <button class="tab-btn">الفصول المشاركة</button>
+            <button class="tab-btn active">الرئيسية</button>
+        </div>
+
+        <!-- المحتوى -->
+        <div class="main-content">
+            <h2 class="welcome-title">مرحبًا بك في لوحة البطولة</h2>
+            
+            <div class="info-box">
+                سجّل النتائج، وأضف موعد كل مباراة، وتابع الفصول المشاركة من الجوال أو الكمبيوتر. يتم حفظ التعديلات تلقائيًا على هذا الجهاز والمتصفح.
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>7</h3>
+                    <p>مباريات الدور الأول</p>
+                </div>
+                <div class="stat-card">
+                    <h3>0</h3>
+                    <p>مباريات لها نتيجة</p>
+                </div>
+                <div class="stat-card">
+                    <h3>13</h3>
+                    <p>الفصول المشاركة</p>
+                </div>
+            </div>
+
+            <div class="alert-box">
+                <div style="font-size: 18px;">💡</div>
+                <div>
+                    إذا فتحت الملف من تطبيق «الملفات» في الآيفون ولم تستجب الأزرار، افتحه باستخدام <span>Safari</span>؛ معاينة الملفات قد لا تشغّل التفاعل.
+                </div>
+            </div>
+        </div>
+
+        <!-- الأزرار السفلية -->
+        <div class="action-buttons" style="padding: 0 25px 30px 25px;">
+            <button class="btn btn-secondary">تعديل أسماء الفصول</button>
+            <button class="btn btn-primary">إدخال النتائج ←</button>
+        </div>
+    </div>
+
+</body>
+</html>
